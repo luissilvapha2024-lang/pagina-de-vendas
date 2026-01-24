@@ -1,0 +1,52 @@
+import { Bell, Search, Moon, Sun } from 'lucide-react';
+import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
+import { useTheme } from '@/contexts/ThemeContext';
+import { cn } from '@/lib/utils';
+
+interface AppHeaderProps {
+  sidebarCollapsed?: boolean;
+}
+
+export function AppHeader({ sidebarCollapsed }: AppHeaderProps) {
+  const { theme, toggleTheme } = useTheme();
+
+  return (
+    <header
+      className={cn(
+        'fixed top-0 right-0 z-30 h-16 bg-card/80 backdrop-blur-xl border-b border-border flex items-center justify-between px-6 transition-all duration-300',
+        sidebarCollapsed ? 'left-16' : 'left-64'
+      )}
+    >
+      {/* Search */}
+      <div className="relative w-96 max-w-md">
+        <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
+        <Input
+          placeholder="Buscar cliente, OS, IMEI..."
+          className="pl-10 bg-background/50 border-border/50 focus:bg-background"
+        />
+      </div>
+
+      {/* Actions */}
+      <div className="flex items-center gap-2">
+        <Button
+          variant="ghost"
+          size="icon"
+          onClick={toggleTheme}
+          className="text-muted-foreground hover:text-foreground"
+        >
+          {theme === 'light' ? <Moon className="w-5 h-5" /> : <Sun className="w-5 h-5" />}
+        </Button>
+        
+        <Button
+          variant="ghost"
+          size="icon"
+          className="text-muted-foreground hover:text-foreground relative"
+        >
+          <Bell className="w-5 h-5" />
+          <span className="absolute top-2 right-2 w-2 h-2 rounded-full bg-destructive" />
+        </Button>
+      </div>
+    </header>
+  );
+}
