@@ -7,6 +7,12 @@ import {
   CarouselNext,
   CarouselPrevious,
 } from "@/components/ui/carousel";
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from "@/components/ui/accordion";
 import { 
   Smartphone, 
   Wrench, 
@@ -105,6 +111,41 @@ const Index = () => {
       city: "Goiânia, GO",
       content: "Nossos clientes elogiam muito as notificações automáticas. Eles se sentem mais seguros sabendo exatamente como está o reparo do aparelho.",
       rating: 4
+    }
+  ];
+
+  const faqs = [
+    {
+      question: "O TechFix funciona offline?",
+      answer: "O TechFix é um sistema web e requer conexão com a internet para funcionar. Porém, estamos desenvolvendo um modo offline para consultas básicas que será lançado em breve."
+    },
+    {
+      question: "Posso usar em mais de um computador?",
+      answer: "Sim! O TechFix é 100% na nuvem, então você pode acessar de qualquer dispositivo com internet. Basta fazer login com sua conta e seus dados estarão lá."
+    },
+    {
+      question: "Como funciona a integração com WhatsApp?",
+      answer: "O sistema gera links automáticos para enviar mensagens aos clientes sobre o status da OS. Basta clicar no botão de WhatsApp e a mensagem já vai preenchida com as informações do serviço."
+    },
+    {
+      question: "Existe limite de ordens de serviço?",
+      answer: "Não há limite! Você pode cadastrar quantas ordens de serviço precisar, independente do plano escolhido."
+    },
+    {
+      question: "Posso cadastrar mais de um usuário?",
+      answer: "Sim, você pode adicionar técnicos, atendentes e outros colaboradores com permissões personalizadas para cada função."
+    },
+    {
+      question: "Como funciona o suporte técnico?",
+      answer: "Oferecemos suporte via chat e e-mail em horário comercial. Clientes do plano Pro têm acesso a suporte prioritário com resposta em até 2 horas."
+    },
+    {
+      question: "Posso importar dados de outro sistema?",
+      answer: "Sim! Nossa equipe pode ajudar na migração dos seus dados de clientes e histórico de serviços. Entre em contato conosco para saber mais."
+    },
+    {
+      question: "O sistema emite nota fiscal?",
+      answer: "Atualmente o TechFix não emite nota fiscal diretamente, mas você pode exportar os dados de vendas para integrar com seu sistema de emissão de NF."
     }
   ];
 
@@ -297,6 +338,37 @@ const Index = () => {
               <CarouselNext className="static translate-y-0" />
             </div>
           </Carousel>
+        </div>
+      </section>
+
+      {/* FAQ Section */}
+      <section className="py-20 px-6">
+        <div className="container mx-auto max-w-3xl">
+          <div className="text-center mb-16">
+            <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
+              Perguntas Frequentes
+            </h2>
+            <p className="text-lg text-muted-foreground">
+              Tire suas dúvidas sobre o TechFix
+            </p>
+          </div>
+
+          <Accordion type="single" collapsible className="w-full space-y-4">
+            {faqs.map((faq, index) => (
+              <AccordionItem 
+                key={index} 
+                value={`item-${index}`}
+                className="bg-card border border-border/50 rounded-lg px-6 data-[state=open]:shadow-md transition-shadow"
+              >
+                <AccordionTrigger className="text-left font-medium text-foreground hover:text-primary hover:no-underline py-5">
+                  {faq.question}
+                </AccordionTrigger>
+                <AccordionContent className="text-muted-foreground pb-5">
+                  {faq.answer}
+                </AccordionContent>
+              </AccordionItem>
+            ))}
+          </Accordion>
         </div>
       </section>
 
