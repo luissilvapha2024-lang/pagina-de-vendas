@@ -73,48 +73,36 @@ const Index = () => {
     {
       name: "Carlos Eduardo Silva",
       city: "São Paulo, SP",
-      role: "Proprietário",
-      company: "CellFix Assistência",
       content: "Antes do TechFix, eu perdia muito tempo procurando papéis e anotações. Agora tenho tudo organizado e meus clientes recebem atualizações automáticas pelo WhatsApp. Minha produtividade aumentou demais!",
       rating: 5
     },
     {
       name: "Amanda Rodrigues",
       city: "Belo Horizonte, MG",
-      role: "Gerente",
-      company: "Tech Mobile BH",
       content: "O sistema é muito intuitivo. Em uma semana toda minha equipe já estava usando sem dificuldades. Os relatórios me ajudam a entender melhor o desempenho da loja.",
       rating: 5
     },
     {
       name: "Roberto Nascimento",
       city: "Curitiba, PR",
-      role: "Técnico e Proprietário",
-      company: "Conserta Fácil",
       content: "Trabalho sozinho e o TechFix me ajuda a manter tudo sob controle. O PDV integrado facilita muito na hora de vender acessórios junto com o serviço.",
       rating: 5
     },
     {
       name: "Fernanda Costa",
       city: "Recife, PE",
-      role: "Administradora",
-      company: "SmartFix Nordeste",
       content: "Temos 3 lojas e o controle financeiro era um pesadelo. Com o TechFix conseguimos ver tudo em tempo real. O suporte também é excelente, sempre respondem rápido.",
       rating: 5
     },
     {
       name: "Marcelo Almeida",
       city: "Porto Alegre, RS",
-      role: "Proprietário",
-      company: "CelularTech",
       content: "Já testei outros sistemas, mas o TechFix é de longe o mais completo para assistência técnica. A integração com WhatsApp é um diferencial enorme.",
       rating: 5
     },
     {
       name: "Juliana Pereira",
       city: "Goiânia, GO",
-      role: "Sócia",
-      company: "Fix Center GO",
       content: "Nossos clientes elogiam muito as notificações automáticas. Eles se sentem mais seguros sabendo exatamente como está o reparo do aparelho.",
       rating: 4
     }
@@ -296,10 +284,7 @@ const Index = () => {
                         <p className="font-semibold text-foreground">
                           {testimonial.name}
                         </p>
-                        <p className="text-sm text-primary">
-                          {testimonial.role} • {testimonial.company}
-                        </p>
-                        <p className="text-xs text-muted-foreground mt-1">
+                        <p className="text-sm text-muted-foreground mt-1">
                           📍 {testimonial.city}
                         </p>
                       </div>
