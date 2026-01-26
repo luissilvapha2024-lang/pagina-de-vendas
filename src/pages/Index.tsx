@@ -129,7 +129,6 @@ const Index = () => {
             >
               {theme === 'light' ? <Moon className="w-5 h-5" /> : <Sun className="w-5 h-5" />}
             </Button>
-            <Button variant="outline">Entrar</Button>
             <Button>Começar Grátis</Button>
           </div>
         </div>
