@@ -1,5 +1,12 @@
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
+import {
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+  CarouselNext,
+  CarouselPrevious,
+} from "@/components/ui/carousel";
 import { 
   Smartphone, 
   Wrench, 
@@ -8,11 +15,14 @@ import {
   ShoppingCart, 
   ClipboardList,
   CheckCircle,
+  Star,
+  Quote,
   ArrowRight,
   Moon,
   Sun
 } from "lucide-react";
 import { useTheme } from "@/contexts/ThemeContext";
+import Autoplay from "embla-carousel-autoplay";
 
 const Index = () => {
   const { theme, toggleTheme } = useTheme();
@@ -57,6 +67,57 @@ const Index = () => {
     "Relatórios em tempo real",
     "Múltiplos usuários e permissões",
     "Suporte técnico especializado"
+  ];
+
+  const testimonials = [
+    {
+      name: "Carlos Eduardo Silva",
+      city: "São Paulo, SP",
+      role: "Proprietário",
+      company: "CellFix Assistência",
+      content: "Antes do TechFix, eu perdia muito tempo procurando papéis e anotações. Agora tenho tudo organizado e meus clientes recebem atualizações automáticas pelo WhatsApp. Minha produtividade aumentou demais!",
+      rating: 5
+    },
+    {
+      name: "Amanda Rodrigues",
+      city: "Belo Horizonte, MG",
+      role: "Gerente",
+      company: "Tech Mobile BH",
+      content: "O sistema é muito intuitivo. Em uma semana toda minha equipe já estava usando sem dificuldades. Os relatórios me ajudam a entender melhor o desempenho da loja.",
+      rating: 5
+    },
+    {
+      name: "Roberto Nascimento",
+      city: "Curitiba, PR",
+      role: "Técnico e Proprietário",
+      company: "Conserta Fácil",
+      content: "Trabalho sozinho e o TechFix me ajuda a manter tudo sob controle. O PDV integrado facilita muito na hora de vender acessórios junto com o serviço.",
+      rating: 5
+    },
+    {
+      name: "Fernanda Costa",
+      city: "Recife, PE",
+      role: "Administradora",
+      company: "SmartFix Nordeste",
+      content: "Temos 3 lojas e o controle financeiro era um pesadelo. Com o TechFix conseguimos ver tudo em tempo real. O suporte também é excelente, sempre respondem rápido.",
+      rating: 5
+    },
+    {
+      name: "Marcelo Almeida",
+      city: "Porto Alegre, RS",
+      role: "Proprietário",
+      company: "CelularTech",
+      content: "Já testei outros sistemas, mas o TechFix é de longe o mais completo para assistência técnica. A integração com WhatsApp é um diferencial enorme.",
+      rating: 5
+    },
+    {
+      name: "Juliana Pereira",
+      city: "Goiânia, GO",
+      role: "Sócia",
+      company: "Fix Center GO",
+      content: "Nossos clientes elogiam muito as notificações automáticas. Eles se sentem mais seguros sabendo exatamente como está o reparo do aparelho.",
+      rating: 4
+    }
   ];
 
   return (
@@ -180,6 +241,78 @@ const Index = () => {
               </div>
             </div>
           </div>
+        </div>
+      </section>
+
+      {/* Testimonials Section */}
+      <section className="py-20 px-6 bg-muted/30">
+        <div className="container mx-auto">
+          <div className="text-center mb-16">
+            <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
+              O que nossos clientes dizem
+            </h2>
+            <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
+              Mais de 500 assistências técnicas já transformaram seus negócios com o TechFix
+            </p>
+          </div>
+
+          <Carousel
+            opts={{
+              align: "start",
+              loop: true,
+            }}
+            plugins={[
+              Autoplay({
+                delay: 5000,
+              }),
+            ]}
+            className="w-full max-w-6xl mx-auto"
+          >
+            <CarouselContent className="-ml-4">
+              {testimonials.map((testimonial, index) => (
+                <CarouselItem key={index} className="pl-4 md:basis-1/2 lg:basis-1/3">
+                  <Card className="h-full border-border/50 bg-card hover:shadow-lg transition-all duration-300">
+                    <CardContent className="p-6 flex flex-col h-full">
+                      <Quote className="w-8 h-8 text-primary/30 mb-4" />
+                      
+                      <p className="text-muted-foreground flex-1 mb-6 leading-relaxed">
+                        "{testimonial.content}"
+                      </p>
+                      
+                      <div className="flex items-center gap-1 mb-4">
+                        {Array.from({ length: 5 }).map((_, i) => (
+                          <Star
+                            key={i}
+                            className={`w-4 h-4 ${
+                              i < testimonial.rating 
+                                ? "text-yellow-500 fill-yellow-500" 
+                                : "text-muted-foreground/30"
+                            }`}
+                          />
+                        ))}
+                      </div>
+                      
+                      <div className="border-t border-border pt-4">
+                        <p className="font-semibold text-foreground">
+                          {testimonial.name}
+                        </p>
+                        <p className="text-sm text-primary">
+                          {testimonial.role} • {testimonial.company}
+                        </p>
+                        <p className="text-xs text-muted-foreground mt-1">
+                          📍 {testimonial.city}
+                        </p>
+                      </div>
+                    </CardContent>
+                  </Card>
+                </CarouselItem>
+              ))}
+            </CarouselContent>
+            <div className="flex justify-center gap-4 mt-8">
+              <CarouselPrevious className="static translate-y-0" />
+              <CarouselNext className="static translate-y-0" />
+            </div>
+          </Carousel>
         </div>
       </section>
 
