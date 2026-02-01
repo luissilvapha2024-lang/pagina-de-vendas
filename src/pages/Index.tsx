@@ -172,7 +172,6 @@ const Index = () => {
             >
               {theme === 'light' ? <Moon className="w-5 h-5" /> : <Sun className="w-5 h-5" />}
             </Button>
-            {/* "Começar Grátis" button removed from header */}
           </div>
         </div>
       </header>
@@ -195,7 +194,7 @@ const Index = () => {
             Tudo em um só lugar, simples e profissional.
           </p>
           
-          <div className="max-w-md mx-auto"> {/* Added a wrapper for the form */}
+          <div className="max-w-md mx-auto">
             <ContactForm />
           </div>
         </div>
@@ -264,6 +263,21 @@ const Index = () => {
                 </div>
               </div>
             </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Contact Form Section - Moved here */}
+      <section className="py-20 px-6 bg-background">
+        <div className="container mx-auto text-center max-w-3xl">
+          <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
+            Fale Conosco
+          </h2>
+          <p className="text-lg text-muted-foreground mb-8">
+            Preencha o formulário abaixo e nossa equipe entrará em contato para tirar suas dúvidas e ajudar você a começar!
+          </p>
+          <div className="max-w-md mx-auto">
+            <ContactForm />
           </div>
         </div>
       </section>
@@ -368,18 +382,16 @@ const Index = () => {
         </div>
       </section>
 
-      {/* CTA Section */}
+      {/* CTA Section - Simplified */}
       <section className="py-20 px-6 bg-primary">
         <div className="container mx-auto text-center">
           <h2 className="text-3xl md:text-4xl font-bold text-primary-foreground mb-4">
             Pronto para transformar sua assistência?
           </h2>
           <p className="text-xl text-primary-foreground/80 mb-8 max-w-2xl mx-auto">
-            Preencha o formulário e entraremos em contato para te ajudar a começar!
+            Comece hoje mesmo a organizar seu negócio com o TechFix!
           </p>
-          <div className="max-w-md mx-auto">
-            <ContactForm />
-          </div>
+          {/* Removed ContactForm from here */}
         </div>
       </section>
 
