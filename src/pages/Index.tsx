@@ -194,9 +194,10 @@ const Index = () => {
             Tudo em um só lugar, simples e profissional.
           </p>
           
-          <div className="max-w-md mx-auto">
-            <ContactForm />
-          </div>
+          {/* Removed ContactForm from here */}
+          <Button size="lg" className="gradient-primary shadow-lg hover:shadow-glow transition-all duration-300">
+            Começar Agora
+          </Button>
         </div>
       </section>
 
@@ -267,7 +268,7 @@ const Index = () => {
         </div>
       </section>
 
-      {/* Contact Form Section - Moved here */}
+      {/* Contact Form Section */}
       <section className="py-20 px-6 bg-background">
         <div className="container mx-auto text-center max-w-3xl">
           <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
@@ -391,7 +392,6 @@ const Index = () => {
           <p className="text-xl text-primary-foreground/80 mb-8 max-w-2xl mx-auto">
             Comece hoje mesmo a organizar seu negócio com o TechFix!
           </p>
-          {/* Removed ContactForm from here */}
         </div>
       </section>
 
