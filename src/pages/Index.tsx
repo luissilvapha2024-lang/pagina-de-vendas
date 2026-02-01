@@ -151,6 +151,12 @@ const Index = () => {
     }
   ];
 
+  const screenshots = [
+    { src: "/screenshot-dashboard.png", alt: "Dashboard do sistema TechFix com visão geral" },
+    { src: "/screenshot-orders.png", alt: "Tela de Ordens de Serviço do sistema TechFix" },
+    { src: "/screenshot-pdv.png", alt: "Tela de Checkout PDV do sistema TechFix" },
+  ];
+
   return (
     <div className="min-h-screen bg-background">
       {/* Header */}
@@ -194,7 +200,6 @@ const Index = () => {
             Tudo em um só lugar, simples e profissional.
           </p>
           
-          {/* Removed ContactForm from here */}
           <Button size="lg" className="gradient-primary shadow-lg hover:shadow-glow transition-all duration-300">
             Começar Agora
           </Button>
@@ -257,12 +262,32 @@ const Index = () => {
             </div>
             
             <div className="relative">
-              <div className="aspect-video rounded-2xl bg-gradient-to-br from-primary/20 to-primary/5 border border-border/50 flex items-center justify-center">
-                <div className="text-center">
-                  <Smartphone className="w-16 h-16 text-primary mx-auto mb-4" />
-                  <p className="text-muted-foreground">Preview do Sistema</p>
-                </div>
-              </div>
+              <Carousel
+                opts={{
+                  align: "start",
+                  loop: true,
+                }}
+                plugins={[
+                  Autoplay({
+                    delay: 3000,
+                  }),
+                ]}
+                className="w-full rounded-2xl overflow-hidden border border-border/50 shadow-lg"
+              >
+                <CarouselContent>
+                  {screenshots.map((screenshot, index) => (
+                    <CarouselItem key={index}>
+                      <img
+                        src={screenshot.src}
+                        alt={screenshot.alt}
+                        className="w-full h-auto object-cover rounded-2xl"
+                      />
+                    </CarouselItem>
+                  ))}
+                </CarouselContent>
+                <CarouselPrevious className="absolute left-4 top-1/2 -translate-y-1/2" />
+                <CarouselNext className="absolute right-4 top-1/2 -translate-y-1/2" />
+              </Carousel>
             </div>
           </div>
         </div>
