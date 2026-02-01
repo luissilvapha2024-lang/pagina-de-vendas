@@ -28,12 +28,13 @@ import {
 } from "lucide-react";
 import { useTheme } from "@/contexts/ThemeContext";
 import Autoplay from "embla-carousel-autoplay";
-import ContactForm from "@/components/ContactForm"; // Import the new ContactForm component
+import ContactForm from "@/components/ContactForm";
+import { useQuery } from "@tanstack/react-query";
+import { supabase } from "@/integrations/supabase/client";
+import { Skeleton } from "@/components/ui/skeleton";
 
 const Index = () => {
   const { theme, toggleTheme } = useTheme();
-
-  // Calendly logic removed as it's replaced by the contact form
 
   const features = [
     {
@@ -151,11 +152,17 @@ const Index = () => {
     }
   ];
 
-  const screenshots = [
-    { src: "/screenshot-dashboard.png", alt: "Dashboard do sistema TechFix com visão geral" },
-    { src: "/screenshot-orders.png", alt: "Tela de Ordens de Serviço do sistema TechFix" },
-    { src: "/screenshot-pdv.png", alt: "Tela de Checkout PDV do sistema TechFix" },
-  ];
+  const { data: screenshots, isLoading: isLoadingScreenshots } = useQuery({
+    queryKey: ["marketing_images"],
+    queryFn: async () => {
+      const { data, error } = await supabase
+        .from("marketing_images")
+        .select("*")
+        .order("display_order", { ascending: true });
+      if (error) throw error;
+      return data;
+    },
+  });
 
   return (
     <div className="min-h-screen bg-background">
@@ -262,32 +269,36 @@ const Index = () => {
             </div>
             
             <div className="relative">
-              <Carousel
-                opts={{
-                  align: "start",
-                  loop: true,
-                }}
-                plugins={[
-                  Autoplay({
-                    delay: 3000,
-                  }),
-                ]}
-                className="w-full rounded-2xl overflow-hidden border border-border/50 shadow-lg"
-              >
-                <CarouselContent>
-                  {screenshots.map((screenshot, index) => (
-                    <CarouselItem key={index}>
-                      <img
-                        src={screenshot.src}
-                        alt={screenshot.alt}
-                        className="w-full h-auto object-cover rounded-2xl"
-                      />
-                    </CarouselItem>
-                  ))}
-                </CarouselContent>
-                <CarouselPrevious className="absolute left-4 top-1/2 -translate-y-1/2" />
-                <CarouselNext className="absolute right-4 top-1/2 -translate-y-1/2" />
-              </Carousel>
+              {isLoadingScreenshots ? (
+                <Skeleton className="w-full aspect-video rounded-2xl" />
+              ) : (
+                <Carousel
+                  opts={{
+                    align: "start",
+                    loop: true,
+                  }}
+                  plugins={[
+                    Autoplay({
+                      delay: 3000,
+                    }),
+                  ]}
+                  className="w-full rounded-2xl overflow-hidden border border-border/50 shadow-lg"
+                >
+                  <CarouselContent>
+                    {screenshots?.map((screenshot, index) => (
+                      <CarouselItem key={index}>
+                        <img
+                          src={screenshot.url}
+                          alt={screenshot.alt_text || `Screenshot ${index + 1}`}
+                          className="w-full h-auto object-cover rounded-2xl"
+                        />
+                      </CarouselItem>
+                    ))}
+                  </CarouselContent>
+                  <CarouselPrevious className="absolute left-4 top-1/2 -translate-y-1/2" />
+                  <CarouselNext className="absolute right-4 top-1/2 -translate-y-1/2" />
+                </Carousel>
+              )}
             </div>
           </div>
         </div>
