@@ -23,51 +23,18 @@ import {
   CheckCircle,
   Star,
   Quote,
-  ArrowRight,
   Moon,
   Sun
 } from "lucide-react";
 import { useTheme } from "@/contexts/ThemeContext";
 import Autoplay from "embla-carousel-autoplay";
-import { useEffect } from "react";
-
-declare global {
-  interface Window {
-    Calendly?: {
-      initPopupWidget: (options: { url: string }) => void;
-    };
-  }
-}
+import ContactForm from "@/components/ContactForm"; // Import the new ContactForm component
 
 const Index = () => {
   const { theme, toggleTheme } = useTheme();
 
-  useEffect(() => {
-    // Load Calendly CSS
-    const link = document.createElement('link');
-    link.href = 'https://assets.calendly.com/assets/external/widget.css';
-    link.rel = 'stylesheet';
-    document.head.appendChild(link);
+  // Calendly logic removed as it's replaced by the contact form
 
-    // Load Calendly Script
-    const script = document.createElement('script');
-    script.src = 'https://assets.calendly.com/assets/external/widget.js';
-    script.async = true;
-    document.body.appendChild(script);
-
-    return () => {
-      document.head.removeChild(link);
-      document.body.removeChild(script);
-    };
-  }, []);
-
-  const openCalendly = () => {
-    if (window.Calendly) {
-      window.Calendly.initPopupWidget({
-        url: 'https://calendly.com/luissilvapha2024/30min?primary_color=69ff74'
-      });
-    }
-  };
   const features = [
     {
       icon: ClipboardList,
@@ -205,7 +172,7 @@ const Index = () => {
             >
               {theme === 'light' ? <Moon className="w-5 h-5" /> : <Sun className="w-5 h-5" />}
             </Button>
-            <Button onClick={openCalendly}>Começar Grátis</Button>
+            {/* "Começar Grátis" button removed from header */}
           </div>
         </div>
       </header>
@@ -228,14 +195,8 @@ const Index = () => {
             Tudo em um só lugar, simples e profissional.
           </p>
           
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Button size="lg" className="text-lg px-8" onClick={openCalendly}>
-              Começar Agora
-              <ArrowRight className="w-5 h-5 ml-2" />
-            </Button>
-            <Button size="lg" variant="outline" className="text-lg px-8" onClick={openCalendly}>
-              Ver Demonstração
-            </Button>
+          <div className="max-w-md mx-auto"> {/* Added a wrapper for the form */}
+            <ContactForm />
           </div>
         </div>
       </section>
@@ -414,12 +375,11 @@ const Index = () => {
             Pronto para transformar sua assistência?
           </h2>
           <p className="text-xl text-primary-foreground/80 mb-8 max-w-2xl mx-auto">
-            Comece agora mesmo e veja como é fácil gerenciar seu negócio
+            Preencha o formulário e entraremos em contato para te ajudar a começar!
           </p>
-          <Button size="lg" variant="secondary" className="text-lg px-8" onClick={openCalendly}>
-            Criar Conta Grátis
-            <ArrowRight className="w-5 h-5 ml-2" />
-          </Button>
+          <div className="max-w-md mx-auto">
+            <ContactForm />
+          </div>
         </div>
       </section>
 
