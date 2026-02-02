@@ -9,7 +9,6 @@ const corsHeaders = {
 }
 
 serve(async (req) => {
-  // Handle CORS preflight requests
   if (req.method === "OPTIONS") {
     return new Response(null, { headers: corsHeaders })
   }
@@ -17,28 +16,37 @@ serve(async (req) => {
   try {
     const { name, email, whatsapp, message } = await req.json()
 
-    console.log("[contact] Recebendo nova mensagem:", { name, email })
+    console.log("[contact] Nova tentativa de contato recebida:", { name, email, whatsapp });
+
+    if (!Deno.env.get("RESEND_API_KEY")) {
+      console.warn("[contact] AVISO: RESEND_API_KEY não configurada nos Secrets do Supabase.");
+    }
 
     const data = await resend.emails.send({
-      from: "TechFix <onboarding@resend.dev>", // Altere para seu e-mail verificado depois
-      to: ["seu-email@exemplo.com"], // Coloque o e-mail onde quer receber os dados
+      from: "TechFix <onboarding@resend.dev>",
+      to: ["seu-email@exemplo.com"], // <-- MUDE PARA SEU E-MAIL AQUI PARA RECEBER O TESTE
       subject: `Novo Contato: ${name}`,
       html: `
-        <h2>Nova mensagem de contato do site</h2>
-        <p><strong>Nome:</strong> ${name}</p>
-        <p><strong>E-mail:</strong> ${email}</p>
-        <p><strong>WhatsApp:</strong> ${whatsapp || "Não informado"}</p>
-        <p><strong>Mensagem:</strong></p>
-        <p>${message}</p>
+        <div style="font-family: sans-serif; padding: 20px; color: #333;">
+          <h2 style="color: #0d9488;">Nova mensagem de contato - TechFix</h2>
+          <p><strong>Nome:</strong> ${name}</p>
+          <p><strong>E-mail:</strong> ${email}</p>
+          <p><strong>WhatsApp:</strong> ${whatsapp || "Não informado"}</p>
+          <hr style="border: 0; border-top: 1px solid #eee; margin: 20px 0;">
+          <p><strong>Mensagem:</strong></p>
+          <p style="white-space: pre-wrap;">${message}</p>
+        </div>
       `,
     })
+
+    console.log("[contact] Resposta do Resend:", data);
 
     return new Response(JSON.stringify(data), {
       status: 200,
       headers: { ...corsHeaders, "Content-Type": "application/json" },
     })
   } catch (error: any) {
-    console.error("[contact] Erro ao enviar e-mail:", error)
+    console.error("[contact] Erro fatal na função:", error.message)
     return new Response(JSON.stringify({ error: error.message }), {
       status: 500,
       headers: { ...corsHeaders, "Content-Type": "application/json" },
