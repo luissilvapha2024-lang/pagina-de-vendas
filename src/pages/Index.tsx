@@ -24,426 +24,321 @@ import {
   Star,
   Quote,
   Moon,
-  Sun
+  Sun,
+  ArrowRight,
+  Zap,
+  ShieldCheck,
+  Clock
 } from "lucide-react";
 import { useTheme } from "@/contexts/ThemeContext";
 import Autoplay from "embla-carousel-autoplay";
 import ContactForm from "@/components/ContactForm";
-import { useQuery } from "@tanstack/react-query";
-import { supabase } from "@/integrations/supabase/client";
-import { Skeleton } from "@/components/ui/skeleton";
 
 const Index = () => {
   const { theme, toggleTheme } = useTheme();
 
+  // Usando as imagens locais da pasta imagens/
+  const localImages = [
+    { url: "/imagens/2.png", alt: "TechFix Dashboard" },
+    { url: "/imagens/3.png", alt: "TechFix Gestão" }
+  ];
+
   const features = [
     {
       icon: ClipboardList,
-      title: "Ordens de Serviço",
-      description: "Gerencie todas as OS com histórico completo e integração WhatsApp"
+      title: "Ordens de Serviço Inteligentes",
+      description: "Acompanhe o status em tempo real com notificações automáticas para seus clientes via WhatsApp."
     },
     {
       icon: Users,
-      title: "Gestão de Clientes",
-      description: "Cadastro completo com histórico de serviços e compras"
+      title: "CRM Especializado",
+      description: "Histórico completo de cada cliente, aparelhos e serviços realizados, facilitando o retorno."
     },
     {
       icon: ShoppingCart,
-      title: "PDV Integrado",
-      description: "Venda produtos e serviços com múltiplas formas de pagamento"
-    },
-    {
-      icon: Wrench,
-      title: "Catálogo de Serviços",
-      description: "Organize seus serviços com preços e tempo de execução"
+      title: "PDV de Alta Performance",
+      description: "Venda acessórios e serviços em segundos. Integrado com controle de estoque e financeiro."
     },
     {
       icon: BarChart3,
-      title: "Relatórios Completos",
-      description: "Acompanhe vendas, lucros e produtividade da equipe"
+      title: "Dashboard de Gestão",
+      description: "Visualize seus lucros, produtividade da equipe e metas em um painel intuitivo e poderoso."
     },
     {
-      icon: Smartphone,
-      title: "100% Responsivo",
-      description: "Acesse de qualquer dispositivo, em qualquer lugar"
-    }
-  ];
-
-  const benefits = [
-    "Controle total das ordens de serviço",
-    "Notificação automática via WhatsApp",
-    "Gestão financeira simplificada",
-    "Relatórios em tempo real",
-    "Múltiplos usuários e permissões",
-    "Suporte técnico especializado"
-  ];
-
-  const testimonials = [
-    {
-      name: "Carlos Eduardo Silva",
-      city: "São Paulo, SP",
-      content: "Antes do TechFix, eu perdia muito tempo procurando papéis e anotações. Agora tenho tudo organizado e meus clientes recebem atualizações automáticas pelo WhatsApp. Minha produtividade aumentou demais!",
-      rating: 5
+      icon: ShieldCheck,
+      title: "Segurança de Dados",
+      description: "Seus dados protegidos na nuvem com backups automáticos diários. Sua oficina sempre segura."
     },
     {
-      name: "Amanda Rodrigues",
-      city: "Belo Horizonte, MG",
-      content: "O sistema é muito intuitivo. Em uma semana toda minha equipe já estava usando sem dificuldades. Os relatórios me ajudam a entender melhor o desempenho da loja.",
-      rating: 5
-    },
-    {
-      name: "Roberto Nascimento",
-      city: "Curitiba, PR",
-      content: "Trabalho sozinho e o TechFix me ajuda a manter tudo sob controle. O PDV integrado facilita muito na hora de vender acessórios junto com o serviço.",
-      rating: 5
-    },
-    {
-      name: "Fernanda Costa",
-      city: "Recife, PE",
-      content: "Temos 3 lojas e o controle financeiro era um pesadelo. Com o TechFix conseguimos ver tudo em tempo real. O suporte também é excelente, sempre respondem rápido.",
-      rating: 5
-    },
-    {
-      name: "Marcelo Almeida",
-      city: "Porto Alegre, RS",
-      content: "Já testei outros sistemas, mas o TechFix é de longe o mais completo para assistência técnica. A integração com WhatsApp é um diferencial enorme.",
-      rating: 5
-    },
-    {
-      name: "Juliana Pereira",
-      city: "Goiânia, GO",
-      content: "Nossos clientes elogiam muito as notificações automáticas. Eles se sentem mais seguros sabendo exatamente como está o reparo do aparelho.",
-      rating: 4
+      icon: Clock,
+      title: "Economia de Tempo",
+      description: "Automatize processos repetitivos e ganhe até 10 horas semanais para focar no que importa."
     }
   ];
 
   const faqs = [
     {
-      question: "O TechFix funciona offline?",
-      answer: "O TechFix é um sistema web e requer conexão com a internet para funcionar. Porém, estamos desenvolvendo um modo offline para consultas básicas que será lançado em breve."
+      question: "O sistema é fácil de usar?",
+      answer: "Sim! O TechFix foi desenhado para ser intuitivo. Em menos de 30 minutos você e sua equipe estarão dominando todas as funções básicas."
     },
     {
-      question: "Posso usar em mais de um computador?",
-      answer: "Sim! O TechFix é 100% na nuvem, então você pode acessar de qualquer dispositivo com internet. Basta fazer login com sua conta e seus dados estarão lá."
+      question: "Preciso instalar algo no meu computador?",
+      answer: "Não. O TechFix é 100% online. Você acessa pelo navegador de qualquer computador, tablet ou celular com internet."
     },
     {
-      question: "Como funciona a integração com WhatsApp?",
-      answer: "O sistema gera links automáticos para enviar mensagens aos clientes sobre o status da OS. Basta clicar no botão de WhatsApp e a mensagem já vai preenchida com as informações do serviço."
-    },
-    {
-      question: "Existe limite de ordens de serviço?",
-      answer: "Não há limite! Você pode cadastrar quantas ordens de serviço precisar, independente do plano escolhido."
-    },
-    {
-      question: "Posso cadastrar mais de um usuário?",
-      answer: "Sim, você pode adicionar técnicos, atendentes e outros colaboradores com permissões personalizadas para cada função."
-    },
-    {
-      question: "Como funciona o suporte técnico?",
-      answer: "Oferecemos suporte via chat e e-mail em horário comercial. Clientes do plano Pro têm acesso a suporte prioritário com resposta em até 2 horas."
-    },
-    {
-      question: "Posso importar dados de outro sistema?",
-      answer: "Sim! Nossa equipe pode ajudar na migração dos seus dados de clientes e histórico de serviços. Entre em contato conosco para saber mais."
-    },
-    {
-      question: "O sistema emite nota fiscal?",
-      answer: "Atualmente o TechFix não emite nota fiscal diretamente, mas você pode exportar os dados de vendas para integrar com seu sistema de emissão de NF."
+      question: "Como funciona o suporte?",
+      answer: "Temos uma equipe de especialistas pronta para te ajudar via WhatsApp e Chat de segunda a sexta, das 09h às 18h."
     }
   ];
 
-  const { data: screenshots, isLoading: isLoadingScreenshots } = useQuery({
-    queryKey: ["marketing_images"],
-    queryFn: async () => {
-      const { data, error } = await supabase
-        .from("marketing_images")
-        .select("*")
-        .order("display_order", { ascending: true });
-      if (error) throw error;
-      return data;
+  const testimonials = [
+    {
+      name: "Ricardo Mendes",
+      role: "Dono de Assistência",
+      content: "O TechFix mudou o patamar da minha loja. Hoje não perco mais OS e o controle financeiro é impecável.",
+      rating: 5
     },
-  });
+    {
+      name: "Bruna Oliveira",
+      role: "Técnica Senior",
+      content: "A organização das peças e serviços é sensacional. O sistema é leve e nunca me deixa na mão.",
+      rating: 5
+    }
+  ];
 
   return (
-    <div className="min-h-screen bg-background">
-      {/* Header */}
-      <header className="fixed top-0 left-0 right-0 z-50 bg-background/80 backdrop-blur-xl border-b border-border">
-        <div className="container mx-auto px-6 h-16 flex items-center justify-between">
-          <div className="flex items-center gap-3">
-            <div className="w-10 h-10 rounded-xl bg-primary flex items-center justify-center">
+    <div className="min-h-screen bg-background text-foreground selection:bg-primary/30">
+      {/* Header Moderno */}
+      <header className="fixed top-0 left-0 right-0 z-50 glass border-b border-border/40">
+        <div className="container mx-auto px-6 h-20 flex items-center justify-between">
+          <div className="flex items-center gap-3 group cursor-pointer">
+            <div className="w-11 h-11 rounded-2xl bg-primary flex items-center justify-center shadow-glow group-hover:scale-110 transition-transform">
               <Smartphone className="w-6 h-6 text-primary-foreground" />
             </div>
-            <span className="font-bold text-xl text-foreground">TechFix</span>
+            <span className="font-extrabold text-2xl tracking-tight">Tech<span className="text-primary">Fix</span></span>
           </div>
           
+          <nav className="hidden md:flex items-center gap-8 text-sm font-medium text-muted-foreground">
+            <a href="#funcionalidades" className="hover:text-primary transition-colors">Funcionalidades</a>
+            <a href="#depoimentos" className="hover:text-primary transition-colors">Depoimentos</a>
+            <a href="#contato" className="hover:text-primary transition-colors">Suporte</a>
+          </nav>
+
           <div className="flex items-center gap-4">
             <Button
               variant="ghost"
               size="icon"
               onClick={toggleTheme}
-              className="text-muted-foreground hover:text-foreground"
+              className="rounded-full"
             >
               {theme === 'light' ? <Moon className="w-5 h-5" /> : <Sun className="w-5 h-5" />}
+            </Button>
+            <Button className="hidden sm:flex rounded-full px-6 gradient-primary shadow-lg font-bold">
+              Entrar
             </Button>
           </div>
         </div>
       </header>
 
-      {/* Hero Section */}
-      <section className="pt-32 pb-20 px-6">
-        <div className="container mx-auto text-center max-w-4xl">
-          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/10 text-primary text-sm font-medium mb-6">
-            <Wrench className="w-4 h-4" />
-            Sistema completo para assistência técnica
+      {/* Hero Section Revamp */}
+      <section className="relative pt-40 pb-20 overflow-hidden">
+        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[1000px] h-[600px] bg-primary/5 blur-[120px] rounded-full -z-10" />
+        
+        <div className="container mx-auto px-6 grid lg:grid-cols-2 gap-12 items-center">
+          <div className="text-left space-y-8 animate-fade-in">
+            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/10 border border-primary/20 text-primary text-xs font-bold uppercase tracking-wider">
+              <Zap className="w-3 h-3" />
+              Líder em Gestão para Assistências
+            </div>
+            
+            <h1 className="text-5xl md:text-7xl font-extrabold tracking-tighter leading-[1.1]">
+              Sua oficina em <br />
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-primary/60">
+                outro nível.
+              </span>
+            </h1>
+            
+            <p className="text-xl text-muted-foreground leading-relaxed max-w-lg">
+              O sistema mais completo e intuitivo do Brasil para gerenciar sua assistência técnica de celulares e eletrônicos.
+            </p>
+            
+            <div className="flex flex-col sm:flex-row gap-4">
+              <Button size="lg" className="h-14 px-8 rounded-2xl text-lg font-bold gradient-primary shadow-xl hover:shadow-glow transition-all group">
+                Começar agora grátis
+                <ArrowRight className="ml-2 w-5 h-5 group-hover:translate-x-1 transition-transform" />
+              </Button>
+              <Button size="lg" variant="outline" className="h-14 px-8 rounded-2xl text-lg font-bold border-2">
+                Ver demonstração
+              </Button>
+            </div>
+            
+            <div className="flex items-center gap-6 pt-4">
+              <div className="flex -space-x-3">
+                {[1,2,3,4].map(i => (
+                  <div key={i} className="w-10 h-10 rounded-full border-2 border-background bg-muted flex items-center justify-center text-[10px] font-bold">
+                    U{i}
+                  </div>
+                ))}
+              </div>
+              <p className="text-sm text-muted-foreground">
+                <span className="font-bold text-foreground">+500 lojistas</span> já confiam no TechFix
+              </p>
+            </div>
           </div>
-          
-          <h1 className="text-4xl md:text-6xl font-bold text-foreground mb-6 leading-tight">
-            Gerencie sua assistência técnica de 
-            <span className="text-primary"> celulares</span> com facilidade
-          </h1>
-          
-          <p className="text-xl text-muted-foreground mb-8 max-w-2xl mx-auto">
-            Sistema completo para controle de ordens de serviço, clientes, vendas e financeiro. 
-            Tudo em um só lugar, simples e profissional.
-          </p>
-          
-          <Button size="lg" className="gradient-primary shadow-lg hover:shadow-glow transition-all duration-300">
-            Começar Agora
-          </Button>
+
+          <div className="relative group animate-slide-up">
+            <div className="absolute -inset-1 bg-gradient-to-r from-primary/30 to-purple-500/30 blur-2xl opacity-50 group-hover:opacity-100 transition duration-1000" />
+            <div className="relative rounded-3xl overflow-hidden border border-border/50 shadow-2xl bg-card">
+              <img 
+                src="/imagens/2.png" 
+                alt="TechFix Interface" 
+                className="w-full h-auto object-cover transform transition-transform duration-700 group-hover:scale-[1.02]"
+              />
+            </div>
+            {/* Elemento flutuante de OS */}
+            <div className="absolute -bottom-6 -left-6 bg-card border border-border p-4 rounded-2xl shadow-xl hidden md:block animate-bounce-slow">
+              <div className="flex items-center gap-3">
+                <div className="w-10 h-10 rounded-full bg-success/20 flex items-center justify-center">
+                  <CheckCircle className="w-5 h-5 text-success" />
+                </div>
+                <div>
+                  <p className="text-xs font-bold">OS #2458 Finalizada</p>
+                  <p className="text-[10px] text-muted-foreground">Cliente notificado via WhatsApp</p>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </section>
 
-      {/* Features Section */}
-      <section className="py-20 px-6 bg-muted/30">
-        <div className="container mx-auto">
-          <div className="text-center mb-16">
-            <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
-              Tudo que você precisa em um só sistema
-            </h2>
-            <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-              Funcionalidades pensadas especialmente para assistências técnicas de celulares
-            </p>
+      {/* Social Proof / Carousel Section */}
+      <section id="funcionalidades" className="py-24 bg-muted/20">
+        <div className="container mx-auto px-6">
+          <div className="text-center max-w-3xl mx-auto mb-20 space-y-4">
+            <h2 className="text-3xl md:text-5xl font-extrabold tracking-tight">Potencialize cada centímetro do seu negócio</h2>
+            <p className="text-muted-foreground text-lg">Desenvolvemos as ferramentas exatas que uma assistência precisa para escalar com organização.</p>
           </div>
-          
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
             {features.map((feature, index) => (
-              <Card key={index} className="border-border/50 bg-card hover:shadow-lg transition-shadow">
-                <CardContent className="p-6">
-                  <div className="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center mb-4">
-                    <feature.icon className="w-6 h-6 text-primary" />
+              <Card key={index} className="group hover:border-primary/50 transition-all duration-300 bg-card/50 backdrop-blur shadow-sm hover:shadow-md">
+                <CardContent className="p-8 space-y-4">
+                  <div className="w-14 h-14 rounded-2xl bg-primary/10 flex items-center justify-center group-hover:bg-primary group-hover:text-primary-foreground transition-all duration-500">
+                    <feature.icon className="w-7 h-7" />
                   </div>
-                  <h3 className="text-xl font-semibold text-foreground mb-2">
-                    {feature.title}
-                  </h3>
-                  <p className="text-muted-foreground">
+                  <h3 className="text-xl font-bold">{feature.title}</h3>
+                  <p className="text-muted-foreground leading-relaxed text-sm">
                     {feature.description}
                   </p>
                 </CardContent>
               </Card>
             ))}
           </div>
-        </div>
-      </section>
 
-      {/* Benefits Section */}
-      <section className="py-20 px-6">
-        <div className="container mx-auto">
-          <div className="grid lg:grid-cols-2 gap-12 items-center">
-            <div>
-              <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-6">
-                Por que escolher o TechFix?
-              </h2>
-              <p className="text-lg text-muted-foreground mb-8">
-                Desenvolvido por quem entende do ramo, o TechFix oferece todas as ferramentas 
-                necessárias para você focar no que realmente importa: atender bem seus clientes.
-              </p>
-              
-              <ul className="space-y-4">
-                {benefits.map((benefit, index) => (
-                  <li key={index} className="flex items-center gap-3">
-                    <CheckCircle className="w-5 h-5 text-primary flex-shrink-0" />
-                    <span className="text-foreground">{benefit}</span>
-                  </li>
+          <div className="mt-24 max-w-5xl mx-auto">
+            <Carousel
+              opts={{ loop: true }}
+              plugins={[Autoplay({ delay: 4000 })]}
+              className="rounded-[2.5rem] overflow-hidden shadow-2xl border border-border/50"
+            >
+              <CarouselContent>
+                {localImages.map((img, index) => (
+                  <CarouselItem key={index}>
+                    <div className="aspect-video relative overflow-hidden bg-muted">
+                      <img src={img.url} alt={img.alt} className="w-full h-full object-cover" />
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent flex items-end p-12">
+                        <p className="text-white font-bold text-2xl">{img.alt}</p>
+                      </div>
+                    </div>
+                  </CarouselItem>
                 ))}
-              </ul>
-            </div>
-            
-            <div className="relative">
-              {isLoadingScreenshots ? (
-                <Skeleton className="w-full aspect-video rounded-2xl" />
-              ) : (
-                <Carousel
-                  opts={{
-                    align: "start",
-                    loop: true,
-                  }}
-                  plugins={[
-                    Autoplay({
-                      delay: 3000,
-                    }),
-                  ]}
-                  className="w-full rounded-2xl overflow-hidden border border-border/50 shadow-lg"
-                >
-                  <CarouselContent>
-                    {screenshots?.map((screenshot, index) => (
-                      <CarouselItem key={index}>
-                        <img
-                          src={screenshot.url}
-                          alt={screenshot.alt_text || `Screenshot ${index + 1}`}
-                          className="w-full h-auto object-cover rounded-2xl"
-                        />
-                      </CarouselItem>
-                    ))}
-                  </CarouselContent>
-                  <CarouselPrevious className="absolute left-4 top-1/2 -translate-y-1/2" />
-                  <CarouselNext className="absolute right-4 top-1/2 -translate-y-1/2" />
-                </Carousel>
-              )}
-            </div>
+              </CarouselContent>
+              <CarouselPrevious className="left-6" />
+              <CarouselNext className="right-6" />
+            </Carousel>
           </div>
         </div>
       </section>
 
-      {/* Contact Form Section */}
-      <section className="py-20 px-6 bg-background">
-        <div className="container mx-auto text-center max-w-3xl">
-          <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
-            Fale Conosco
-          </h2>
-          <p className="text-lg text-muted-foreground mb-8">
-            Preencha o formulário abaixo e nossa equipe entrará em contato para tirar suas dúvidas e ajudar você a começar!
-          </p>
-          <div className="max-w-md mx-auto">
-            <ContactForm />
-          </div>
-        </div>
-      </section>
-
-      {/* Testimonials Section */}
-      <section className="py-20 px-6 bg-muted/30">
-        <div className="container mx-auto">
-          <div className="text-center mb-16">
-            <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
-              O que nossos clientes dizem
-            </h2>
-            <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-              Mais de 500 assistências técnicas já transformaram seus negócios com o TechFix
-            </p>
-          </div>
-
-          <Carousel
-            opts={{
-              align: "start",
-              loop: true,
-            }}
-            plugins={[
-              Autoplay({
-                delay: 5000,
-              }),
-            ]}
-            className="w-full max-w-6xl mx-auto"
-          >
-            <CarouselContent className="-ml-4">
-              {testimonials.map((testimonial, index) => (
-                <CarouselItem key={index} className="pl-4 md:basis-1/2 lg:basis-1/3">
-                  <Card className="h-full border-border/50 bg-card hover:shadow-lg transition-all duration-300">
-                    <CardContent className="p-6 flex flex-col h-full">
-                      <Quote className="w-8 h-8 text-primary/30 mb-4" />
-                      
-                      <p className="text-muted-foreground flex-1 mb-6 leading-relaxed">
-                        "{testimonial.content}"
-                      </p>
-                      
-                      <div className="flex items-center gap-1 mb-4">
-                        {Array.from({ length: 5 }).map((_, i) => (
-                          <Star
-                            key={i}
-                            className={`w-4 h-4 ${
-                              i < testimonial.rating 
-                                ? "text-yellow-500 fill-yellow-500" 
-                                : "text-muted-foreground/30"
-                            }`}
-                          />
-                        ))}
-                      </div>
-                      
-                      <div className="border-t border-border pt-4">
-                        <p className="font-semibold text-foreground">
-                          {testimonial.name}
-                        </p>
-                        <p className="text-sm text-muted-foreground mt-1">
-                          📍 {testimonial.city}
-                        </p>
-                      </div>
-                    </CardContent>
-                  </Card>
-                </CarouselItem>
-              ))}
-            </CarouselContent>
-            <div className="flex justify-center gap-4 mt-8">
-              <CarouselPrevious className="static translate-y-0" />
-              <CarouselNext className="static translate-y-0" />
-            </div>
-          </Carousel>
-        </div>
-      </section>
-
-      {/* FAQ Section */}
-      <section className="py-20 px-6">
-        <div className="container mx-auto max-w-3xl">
-          <div className="text-center mb-16">
-            <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
-              Perguntas Frequentes
-            </h2>
-            <p className="text-lg text-muted-foreground">
-              Tire suas dúvidas sobre o TechFix
-            </p>
-          </div>
-
-          <Accordion type="single" collapsible className="w-full space-y-4">
-            {faqs.map((faq, index) => (
-              <AccordionItem 
-                key={index} 
-                value={`item-${index}`}
-                className="bg-card border border-border/50 rounded-lg px-6 data-[state=open]:shadow-md transition-shadow"
-              >
-                <AccordionTrigger className="text-left font-medium text-foreground hover:text-primary hover:no-underline py-5">
-                  {faq.question}
-                </AccordionTrigger>
-                <AccordionContent className="text-muted-foreground pb-5">
-                  {faq.answer}
-                </AccordionContent>
-              </AccordionItem>
-            ))}
-          </Accordion>
-        </div>
-      </section>
-
-      {/* CTA Section - Simplified */}
-      <section className="py-20 px-6 bg-primary">
-        <div className="container mx-auto text-center">
-          <h2 className="text-3xl md:text-4xl font-bold text-primary-foreground mb-4">
-            Pronto para transformar sua assistência?
-          </h2>
-          <p className="text-xl text-primary-foreground/80 mb-8 max-w-2xl mx-auto">
-            Comece hoje mesmo a organizar seu negócio com o TechFix!
-          </p>
-        </div>
-      </section>
-
-      {/* Footer */}
-      <footer className="py-12 px-6 border-t border-border">
-        <div className="container mx-auto">
-          <div className="flex flex-col md:flex-row items-center justify-between gap-4">
-            <div className="flex items-center gap-3">
-              <div className="w-8 h-8 rounded-lg bg-primary flex items-center justify-center">
-                <Smartphone className="w-5 h-5 text-primary-foreground" />
+      {/* Testimonials */}
+      <section id="depoimentos" className="py-24">
+        <div className="container mx-auto px-6">
+          <div className="grid lg:grid-cols-3 gap-12 items-center">
+            <div className="lg:col-span-1 space-y-6">
+              <h2 className="text-4xl font-extrabold tracking-tight">O que dizem os <br /><span className="text-primary">especialistas?</span></h2>
+              <p className="text-muted-foreground">Quem vive o dia a dia da bancada sabe a diferença que uma boa ferramenta faz.</p>
+              <div className="flex gap-2">
+                {[1,2,3,4,5].map(i => <Star key={i} className="w-5 h-5 fill-yellow-500 text-yellow-500" />)}
               </div>
-              <span className="font-semibold text-foreground">TechFix</span>
+              <p className="text-sm font-bold">Nota 4.9/5 em satisfação</p>
             </div>
-            <p className="text-sm text-muted-foreground">
-              © 2024 TechFix. Todos os direitos reservados.
-            </p>
+            <div className="lg:col-span-2 grid md:grid-cols-2 gap-6">
+              {testimonials.map((t, i) => (
+                <Card key={i} className="bg-muted/30 border-none">
+                  <CardContent className="p-8 space-y-4">
+                    <Quote className="text-primary/20 w-10 h-10" />
+                    <p className="italic text-muted-foreground">"{t.content}"</p>
+                    <div className="pt-4 flex items-center gap-4">
+                      <div className="w-12 h-12 rounded-full bg-primary/20 flex items-center justify-center font-bold">
+                        {t.name[0]}
+                      </div>
+                      <div>
+                        <p className="font-bold">{t.name}</p>
+                        <p className="text-xs text-muted-foreground">{t.role}</p>
+                      </div>
+                    </div>
+                  </CardContent>
+                </Card>
+              ))}
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* FAQ & Contact Revamp */}
+      <section id="contato" className="py-24 bg-muted/20">
+        <div className="container mx-auto px-6 grid lg:grid-cols-2 gap-20">
+          <div className="space-y-8">
+            <h2 className="text-4xl font-extrabold tracking-tight">Dúvidas frequentes</h2>
+            <Accordion type="single" collapsible className="w-full">
+              {faqs.map((faq, i) => (
+                <AccordionItem key={i} value={`faq-${i}`} className="border-border/60">
+                  <AccordionTrigger className="text-left font-bold hover:text-primary transition-colors">
+                    {faq.question}
+                  </AccordionTrigger>
+                  <AccordionContent className="text-muted-foreground leading-relaxed">
+                    {faq.answer}
+                  </AccordionContent>
+                </AccordionItem>
+              ))}
+            </Accordion>
+          </div>
+
+          <Card className="rounded-3xl shadow-2xl border-none">
+            <CardContent className="p-10 space-y-8">
+              <div className="space-y-2">
+                <h3 className="text-2xl font-bold">Fale com um especialista</h3>
+                <p className="text-muted-foreground">Preencha os dados e entraremos em contato o mais rápido possível.</p>
+              </div>
+              <ContactForm />
+            </CardContent>
+          </Card>
+        </div>
+      </section>
+
+      {/* Footer Minimalista */}
+      <footer className="py-12 border-t border-border/40">
+        <div className="container mx-auto px-6 flex flex-col md:flex-row justify-between items-center gap-8">
+          <div className="flex items-center gap-3 opacity-80">
+            <div className="w-8 h-8 rounded-xl bg-primary flex items-center justify-center">
+              <Smartphone className="w-4 h-4 text-primary-foreground" />
+            </div>
+            <span className="font-bold text-lg">TechFix</span>
+          </div>
+          <p className="text-sm text-muted-foreground">© 2024 TechFix Soluções. Made for professionals.</p>
+          <div className="flex gap-6 text-sm font-medium text-muted-foreground">
+            <a href="#" className="hover:text-primary transition-colors">Termos</a>
+            <a href="#" className="hover:text-primary transition-colors">Privacidade</a>
           </div>
         </div>
       </footer>
