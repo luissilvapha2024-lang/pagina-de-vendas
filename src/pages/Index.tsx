@@ -67,7 +67,7 @@ const Index = () => {
     {
       icon: ShieldCheck,
       title: "Segurança de Dados",
-      description: "Seus dados protegidos na nuvem com backups automáticos diários. Sua oficina sempre segura."
+      description: "Seus dados protegidos na nuvem com backups automáticos diários. Sua loja sempre segura."
     },
     {
       icon: Clock,
@@ -152,7 +152,7 @@ const Index = () => {
             </div>
             
             <h1 className="text-5xl md:text-7xl font-extrabold tracking-tighter leading-[1.1]">
-              Sua oficina em <br />
+              Sua Loja em <br />
               <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-primary/60">
                 outro nível.
               </span>
