@@ -40,7 +40,7 @@ const ContactForm = () => {
 
   const onSubmit = async (values: ContactFormValues) => {
     try {
-      const response = await fetch("/api/contact", {
+      const response = await fetch("https://pmmoeyjxzttizfnrglwm.supabase.co/functions/v1/contact", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -49,8 +49,7 @@ const ContactForm = () => {
       });
 
       if (!response.ok) {
-        const errorData = await response.json();
-        throw new Error(errorData.message || "Erro ao enviar a mensagem.");
+        throw new Error("Erro ao enviar a mensagem. Verifique se a chave do Resend está configurada.");
       }
 
       toast.success("Mensagem enviada com sucesso! Em breve entraremos em contato.");
