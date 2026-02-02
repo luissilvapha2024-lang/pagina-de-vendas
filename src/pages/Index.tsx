@@ -15,7 +15,6 @@ import {
 } from "@/components/ui/accordion";
 import { 
   Smartphone, 
-  Wrench, 
   Users, 
   BarChart3, 
   ShoppingCart, 
@@ -32,7 +31,6 @@ import {
 } from "lucide-react";
 import { useTheme } from "@/contexts/ThemeContext";
 import Autoplay from "embla-carousel-autoplay";
-import ContactForm from "@/components/ContactForm";
 
 const Index = () => {
   const { theme, toggleTheme } = useTheme();
@@ -121,7 +119,7 @@ const Index = () => {
           <nav className="hidden md:flex items-center gap-8 text-sm font-medium text-muted-foreground">
             <a href="#funcionalidades" className="hover:text-primary transition-colors">Funcionalidades</a>
             <a href="#depoimentos" className="hover:text-primary transition-colors">Depoimentos</a>
-            <a href="#contato" className="hover:text-primary transition-colors">Suporte</a>
+            <a href="#faq" className="hover:text-primary transition-colors">Dúvidas</a>
           </nav>
 
           <div className="flex items-center gap-4">
@@ -292,34 +290,25 @@ const Index = () => {
         </div>
       </section>
 
-      {/* FAQ & Contact Revamp */}
-      <section id="contato" className="py-24 bg-muted/20">
-        <div className="container mx-auto px-6 grid lg:grid-cols-2 gap-20">
-          <div className="space-y-8">
+      {/* FAQ Section */}
+      <section id="faq" className="py-24 bg-muted/20">
+        <div className="container mx-auto px-6 max-w-3xl">
+          <div className="space-y-8 text-center mb-12">
             <h2 className="text-4xl font-extrabold tracking-tight">Dúvidas frequentes</h2>
-            <Accordion type="single" collapsible className="w-full">
-              {faqs.map((faq, i) => (
-                <AccordionItem key={i} value={`faq-${i}`} className="border-border/60">
-                  <AccordionTrigger className="text-left font-bold hover:text-primary transition-colors">
-                    {faq.question}
-                  </AccordionTrigger>
-                  <AccordionContent className="text-muted-foreground leading-relaxed">
-                    {faq.answer}
-                  </AccordionContent>
-                </AccordionItem>
-              ))}
-            </Accordion>
+            <p className="text-muted-foreground">Tudo o que você precisa saber sobre o TechFix.</p>
           </div>
-
-          <Card className="rounded-3xl shadow-2xl border-none">
-            <CardContent className="p-10 space-y-8">
-              <div className="space-y-2">
-                <h3 className="text-2xl font-bold">Fale com um especialista</h3>
-                <p className="text-muted-foreground">Preencha os dados e entraremos em contato o mais rápido possível.</p>
-              </div>
-              <ContactForm />
-            </CardContent>
-          </Card>
+          <Accordion type="single" collapsible className="w-full">
+            {faqs.map((faq, i) => (
+              <AccordionItem key={i} value={`faq-${i}`} className="border-border/60">
+                <AccordionTrigger className="text-left font-bold hover:text-primary transition-colors">
+                  {faq.question}
+                </AccordionTrigger>
+                <AccordionContent className="text-muted-foreground leading-relaxed">
+                  {faq.answer}
+                </AccordionContent>
+              </AccordionItem>
+            ))}
+          </Accordion>
         </div>
       </section>
 
