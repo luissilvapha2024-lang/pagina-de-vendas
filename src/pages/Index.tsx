@@ -13,6 +13,11 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
+import {
+  Dialog,
+  DialogContent,
+  DialogTrigger,
+} from "@/components/ui/dialog";
 import { 
   Smartphone, 
   Users, 
@@ -27,7 +32,8 @@ import {
   ArrowRight,
   Zap,
   ShieldCheck,
-  Clock
+  Clock,
+  Maximize2
 } from "lucide-react";
 import { useTheme } from "@/contexts/ThemeContext";
 import Autoplay from "embla-carousel-autoplay";
@@ -35,7 +41,6 @@ import Autoplay from "embla-carousel-autoplay";
 const Index = () => {
   const { theme, toggleTheme } = useTheme();
 
-  // Usando as imagens locais da pasta imagens/
   const localImages = [
     { url: "/imagens/2.png", alt: "TechFix Dashboard" },
     { url: "/imagens/3.png", alt: "TechFix Gestão" }
@@ -243,12 +248,28 @@ const Index = () => {
               <CarouselContent>
                 {localImages.map((img, index) => (
                   <CarouselItem key={index}>
-                    <div className="aspect-video relative overflow-hidden bg-muted">
-                      <img src={img.url} alt={img.alt} className="w-full h-full object-cover" />
-                      <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent flex items-end p-12">
-                        <p className="text-white font-bold text-2xl">{img.alt}</p>
-                      </div>
-                    </div>
+                    <Dialog>
+                      <DialogTrigger asChild>
+                        <div className="aspect-video relative overflow-hidden bg-muted cursor-zoom-in group/img">
+                          <img src={img.url} alt={img.alt} className="w-full h-full object-cover transition-transform duration-500 group-hover/img:scale-105" />
+                          <div className="absolute inset-0 bg-black/0 group-hover/img:bg-black/20 transition-colors flex items-center justify-center opacity-0 group-hover/img:opacity-100">
+                            <div className="bg-white/20 backdrop-blur-md p-3 rounded-full">
+                              <Maximize2 className="w-6 h-6 text-white" />
+                            </div>
+                          </div>
+                          <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent flex items-end p-12 pointer-events-none">
+                            <p className="text-white font-bold text-2xl">{img.alt}</p>
+                          </div>
+                        </div>
+                      </DialogTrigger>
+                      <DialogContent className="max-w-[95vw] max-h-[95vh] p-0 overflow-hidden border-none bg-transparent shadow-none">
+                        <img 
+                          src={img.url} 
+                          alt={img.alt} 
+                          className="w-full h-full object-contain rounded-lg shadow-2xl animate-scale-in" 
+                        />
+                      </DialogContent>
+                    </Dialog>
                   </CarouselItem>
                 ))}
               </CarouselContent>
