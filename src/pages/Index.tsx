@@ -164,8 +164,10 @@ const Index = () => {
                   <ArrowRight className="ml-2 w-5 h-5 group-hover:translate-x-1 transition-transform" />
                 </a>
               </Button>
-              <Button size="lg" variant="outline" className="h-14 px-8 rounded-2xl text-lg font-bold border-2">
-                Ver demonstração
+              <Button size="lg" variant="outline" className="h-14 px-8 rounded-2xl text-lg font-bold border-2" asChild>
+                <a href="#demonstracao">
+                  Ver demonstração
+                </a>
               </Button>
             </div>
             
@@ -232,7 +234,7 @@ const Index = () => {
             ))}
           </div>
 
-          <div className="mt-24 max-w-5xl mx-auto">
+          <div id="demonstracao" className="mt-24 max-w-5xl mx-auto scroll-mt-24">
             <Carousel
               opts={{ loop: true }}
               plugins={[Autoplay({ delay: 4000 })]}
