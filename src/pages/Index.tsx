@@ -133,9 +133,6 @@ const Index = () => {
             >
               {theme === 'light' ? <Moon className="w-5 h-5" /> : <Sun className="w-5 h-5" />}
             </Button>
-            <Button className="hidden sm:flex rounded-full px-6 gradient-primary shadow-lg font-bold">
-              Entrar
-            </Button>
           </div>
         </div>
       </header>
