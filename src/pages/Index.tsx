@@ -164,7 +164,7 @@ const Index = () => {
             
             <div className="flex flex-col sm:flex-row gap-4">
               <Button size="lg" className="h-14 px-8 rounded-2xl text-lg font-bold gradient-primary shadow-xl hover:shadow-glow transition-all group" asChild>
-                <a href="https://user.petcontrolapp.com.br/cadastro" target="_blank" rel="noopener noreferrer">
+                <a href="https://user.techfixapp.com.br/cadastro" target="_blank" rel="noopener noreferrer">
                   Começar agora grátis
                   <ArrowRight className="ml-2 w-5 h-5 group-hover:translate-x-1 transition-transform" />
                 </a>
