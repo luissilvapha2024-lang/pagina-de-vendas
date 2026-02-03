@@ -1,5 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
+import { Link } from "react-router-dom";
 import {
   Carousel,
   CarouselContent,
@@ -348,8 +349,8 @@ const Index = () => {
           </div>
           <p className="text-sm text-muted-foreground">© 2024 TechFix Soluções. Made for professionals.</p>
           <div className="flex gap-6 text-sm font-medium text-muted-foreground">
-            <a href="#" className="hover:text-primary transition-colors">Termos</a>
-            <a href="#" className="hover:text-primary transition-colors">Privacidade</a>
+            <Link to="/termos" className="hover:text-primary transition-colors">Termos</Link>
+            <Link to="/privacidade" className="hover:text-primary transition-colors">Privacidade</Link>
           </div>
         </div>
       </footer>
