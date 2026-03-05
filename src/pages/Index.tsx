@@ -38,6 +38,40 @@ import {
 } from "lucide-react";
 import { useTheme } from "@/contexts/ThemeContext";
 import Autoplay from "embla-carousel-autoplay";
+import { motion } from "framer-motion";
+
+const fadeUp = {
+  hidden: { opacity: 0, y: 40 },
+  visible: (i: number = 0) => ({
+    opacity: 1,
+    y: 0,
+    transition: { duration: 0.6, delay: i * 0.1, ease: [0.25, 0.46, 0.45, 0.94] },
+  }),
+};
+
+const fadeIn = {
+  hidden: { opacity: 0 },
+  visible: { opacity: 1, transition: { duration: 0.6 } },
+};
+
+const scaleUp = {
+  hidden: { opacity: 0, scale: 0.9 },
+  visible: (i: number = 0) => ({
+    opacity: 1,
+    scale: 1,
+    transition: { duration: 0.5, delay: i * 0.1, ease: "easeOut" },
+  }),
+};
+
+const slideRight = {
+  hidden: { opacity: 0, x: -60 },
+  visible: { opacity: 1, x: 0, transition: { duration: 0.7, ease: "easeOut" } },
+};
+
+const slideLeft = {
+  hidden: { opacity: 0, x: 60 },
+  visible: { opacity: 1, x: 0, transition: { duration: 0.7, ease: "easeOut" } },
+};
 
 const Index = () => {
   const { theme, toggleTheme } = useTheme();
@@ -146,24 +180,30 @@ const Index = () => {
         <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[1000px] h-[600px] bg-primary/5 blur-[120px] rounded-full -z-10" />
         
         <div className="container mx-auto px-6 grid lg:grid-cols-2 gap-12 items-center">
-          <div className="text-left space-y-8 animate-fade-in">
-            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/10 border border-primary/20 text-primary text-xs font-bold uppercase tracking-wider">
+          <motion.div
+            className="text-left space-y-8"
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, amount: 0.3 }}
+            variants={slideRight}
+          >
+            <motion.div variants={fadeUp} custom={0} className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/10 border border-primary/20 text-primary text-xs font-bold uppercase tracking-wider">
               <Zap className="w-3 h-3" />
               Líder em Gestão para Assistências
-            </div>
+            </motion.div>
             
-            <h1 className="text-5xl md:text-7xl font-extrabold tracking-tighter leading-[1.1]">
+            <motion.h1 variants={fadeUp} custom={1} className="text-5xl md:text-7xl font-extrabold tracking-tighter leading-[1.1]">
               Sua Loja em <br />
               <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-primary/60">
                 outro nível.
               </span>
-            </h1>
+            </motion.h1>
             
-            <p className="text-xl text-muted-foreground leading-relaxed max-w-lg">
+            <motion.p variants={fadeUp} custom={2} className="text-xl text-muted-foreground leading-relaxed max-w-lg">
               O sistema mais completo e intuitivo do Brasil para gerenciar sua assistência técnica de celulares e eletrônicos.
-            </p>
+            </motion.p>
             
-            <div className="flex flex-col sm:flex-row gap-4">
+            <motion.div variants={fadeUp} custom={3} className="flex flex-col sm:flex-row gap-4">
               <Button size="lg" className="h-14 px-8 rounded-2xl text-lg font-bold gradient-primary shadow-xl hover:shadow-glow transition-all group" asChild>
                 <a href="https://user.techfixapp.com.br/cadastro" target="_blank" rel="noopener noreferrer">
                   Começar agora grátis
@@ -175,9 +215,9 @@ const Index = () => {
                   Ver demonstração
                 </a>
               </Button>
-            </div>
+            </motion.div>
             
-            <div className="flex items-center gap-6 pt-4">
+            <motion.div variants={fadeUp} custom={4} className="flex items-center gap-6 pt-4">
               <div className="flex -space-x-3">
                 {[1,2,3,4].map(i => (
                   <div key={i} className="w-10 h-10 rounded-full border-2 border-background bg-muted flex items-center justify-center text-[10px] font-bold">
@@ -188,10 +228,16 @@ const Index = () => {
               <p className="text-sm text-muted-foreground">
                 <span className="font-bold text-foreground">+500 lojistas</span> já confiam no TechFix
               </p>
-            </div>
-          </div>
+            </motion.div>
+          </motion.div>
 
-          <div className="relative group animate-slide-up">
+          <motion.div
+            className="relative group"
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, amount: 0.3 }}
+            variants={slideLeft}
+          >
             <div className="absolute -inset-1 bg-gradient-to-r from-primary/30 to-purple-500/30 blur-2xl opacity-50 group-hover:opacity-100 transition duration-1000" />
             <div className="relative rounded-3xl overflow-hidden border border-border/50 shadow-2xl bg-card">
               <img 
@@ -201,7 +247,13 @@ const Index = () => {
               />
             </div>
             {/* Elemento flutuante de OS */}
-            <div className="absolute -bottom-6 -left-6 bg-card border border-border p-4 rounded-2xl shadow-xl hidden md:block animate-bounce-slow">
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: 0.8, duration: 0.5 }}
+              className="absolute -bottom-6 -left-6 bg-card border border-border p-4 rounded-2xl shadow-xl hidden md:block"
+            >
               <div className="flex items-center gap-3">
                 <div className="w-10 h-10 rounded-full bg-success/20 flex items-center justify-center">
                   <CheckCircle className="w-5 h-5 text-success" />
@@ -211,36 +263,58 @@ const Index = () => {
                   <p className="text-[10px] text-muted-foreground">Cliente notificado via WhatsApp</p>
                 </div>
               </div>
-            </div>
-          </div>
+            </motion.div>
+          </motion.div>
         </div>
       </section>
 
       {/* Social Proof / Carousel Section */}
       <section id="funcionalidades" className="py-24 bg-muted/20">
         <div className="container mx-auto px-6">
-          <div className="text-center max-w-3xl mx-auto mb-20 space-y-4">
+          <motion.div
+            className="text-center max-w-3xl mx-auto mb-20 space-y-4"
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, amount: 0.5 }}
+            variants={fadeUp}
+          >
             <h2 className="text-3xl md:text-5xl font-extrabold tracking-tight">Potencialize cada centímetro do seu negócio</h2>
             <p className="text-muted-foreground text-lg">Desenvolvemos as ferramentas exatas que uma assistência precisa para escalar com organização.</p>
-          </div>
+          </motion.div>
 
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
             {features.map((feature, index) => (
-              <Card key={index} className="group hover:border-primary/50 transition-all duration-300 bg-card/50 backdrop-blur shadow-sm hover:shadow-md">
-                <CardContent className="p-8 space-y-4">
-                  <div className="w-14 h-14 rounded-2xl bg-primary/10 flex items-center justify-center group-hover:bg-primary group-hover:text-primary-foreground transition-all duration-500">
-                    <feature.icon className="w-7 h-7" />
-                  </div>
-                  <h3 className="text-xl font-bold">{feature.title}</h3>
-                  <p className="text-muted-foreground leading-relaxed text-sm">
-                    {feature.description}
-                  </p>
-                </CardContent>
-              </Card>
+              <motion.div
+                key={index}
+                initial="hidden"
+                whileInView="visible"
+                viewport={{ once: true, amount: 0.2 }}
+                variants={scaleUp}
+                custom={index}
+              >
+                <Card className="group hover:border-primary/50 transition-all duration-300 bg-card/50 backdrop-blur shadow-sm hover:shadow-md h-full">
+                  <CardContent className="p-8 space-y-4">
+                    <div className="w-14 h-14 rounded-2xl bg-primary/10 flex items-center justify-center group-hover:bg-primary group-hover:text-primary-foreground transition-all duration-500">
+                      <feature.icon className="w-7 h-7" />
+                    </div>
+                    <h3 className="text-xl font-bold">{feature.title}</h3>
+                    <p className="text-muted-foreground leading-relaxed text-sm">
+                      {feature.description}
+                    </p>
+                  </CardContent>
+                </Card>
+              </motion.div>
             ))}
           </div>
 
-          <div id="demonstracao" className="mt-24 max-w-5xl mx-auto scroll-mt-24">
+          <motion.div
+            id="demonstracao"
+            className="mt-24 max-w-5xl mx-auto scroll-mt-24"
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, amount: 0.3 }}
+            variants={fadeUp}
+          >
             <Carousel
               opts={{ loop: true }}
               plugins={[Autoplay({ delay: 4000 })]}
@@ -277,7 +351,7 @@ const Index = () => {
               <CarouselPrevious className="left-6" />
               <CarouselNext className="right-6" />
             </Carousel>
-          </div>
+          </motion.div>
         </div>
       </section>
 
@@ -285,31 +359,46 @@ const Index = () => {
       <section id="depoimentos" className="py-24">
         <div className="container mx-auto px-6">
           <div className="grid lg:grid-cols-3 gap-12 items-center">
-            <div className="lg:col-span-1 space-y-6">
+            <motion.div
+              className="lg:col-span-1 space-y-6"
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true, amount: 0.3 }}
+              variants={slideRight}
+            >
               <h2 className="text-4xl font-extrabold tracking-tight">O que dizem os <br /><span className="text-primary">especialistas?</span></h2>
               <p className="text-muted-foreground">Quem vive o dia a dia da bancada sabe a diferença que uma boa ferramenta faz.</p>
               <div className="flex gap-2">
                 {[1,2,3,4,5].map(i => <Star key={i} className="w-5 h-5 fill-yellow-500 text-yellow-500" />)}
               </div>
               <p className="text-sm font-bold">Nota 4.9/5 em satisfação</p>
-            </div>
+            </motion.div>
             <div className="lg:col-span-2 grid md:grid-cols-2 gap-6">
               {testimonials.map((t, i) => (
-                <Card key={i} className="bg-muted/30 border-none">
-                  <CardContent className="p-8 space-y-4">
-                    <Quote className="text-primary/20 w-10 h-10" />
-                    <p className="italic text-muted-foreground">"{t.content}"</p>
-                    <div className="pt-4 flex items-center gap-4">
-                      <div className="w-12 h-12 rounded-full bg-primary/20 flex items-center justify-center font-bold">
-                        {t.name[0]}
+                <motion.div
+                  key={i}
+                  initial="hidden"
+                  whileInView="visible"
+                  viewport={{ once: true, amount: 0.3 }}
+                  variants={scaleUp}
+                  custom={i}
+                >
+                  <Card className="bg-muted/30 border-none h-full">
+                    <CardContent className="p-8 space-y-4">
+                      <Quote className="text-primary/20 w-10 h-10" />
+                      <p className="italic text-muted-foreground">"{t.content}"</p>
+                      <div className="pt-4 flex items-center gap-4">
+                        <div className="w-12 h-12 rounded-full bg-primary/20 flex items-center justify-center font-bold">
+                          {t.name[0]}
+                        </div>
+                        <div>
+                          <p className="font-bold">{t.name}</p>
+                          <p className="text-xs text-muted-foreground">{t.role}</p>
+                        </div>
                       </div>
-                      <div>
-                        <p className="font-bold">{t.name}</p>
-                        <p className="text-xs text-muted-foreground">{t.role}</p>
-                      </div>
-                    </div>
-                  </CardContent>
-                </Card>
+                    </CardContent>
+                  </Card>
+                </motion.div>
               ))}
             </div>
           </div>
@@ -319,27 +408,46 @@ const Index = () => {
       {/* FAQ Section */}
       <section id="faq" className="py-24 bg-muted/20">
         <div className="container mx-auto px-6 max-w-3xl">
-          <div className="space-y-8 text-center mb-12">
+          <motion.div
+            className="space-y-8 text-center mb-12"
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, amount: 0.5 }}
+            variants={fadeUp}
+          >
             <h2 className="text-4xl font-extrabold tracking-tight">Dúvidas frequentes</h2>
             <p className="text-muted-foreground">Tudo o que você precisa saber sobre o TechFix.</p>
-          </div>
-          <Accordion type="single" collapsible className="w-full">
-            {faqs.map((faq, i) => (
-              <AccordionItem key={i} value={`faq-${i}`} className="border-border/60">
-                <AccordionTrigger className="text-left font-bold hover:text-primary transition-colors">
-                  {faq.question}
-                </AccordionTrigger>
-                <AccordionContent className="text-muted-foreground leading-relaxed">
-                  {faq.answer}
-                </AccordionContent>
-              </AccordionItem>
-            ))}
-          </Accordion>
+          </motion.div>
+          <motion.div
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, amount: 0.2 }}
+            variants={fadeIn}
+          >
+            <Accordion type="single" collapsible className="w-full">
+              {faqs.map((faq, i) => (
+                <AccordionItem key={i} value={`faq-${i}`} className="border-border/60">
+                  <AccordionTrigger className="text-left font-bold hover:text-primary transition-colors">
+                    {faq.question}
+                  </AccordionTrigger>
+                  <AccordionContent className="text-muted-foreground leading-relaxed">
+                    {faq.answer}
+                  </AccordionContent>
+                </AccordionItem>
+              ))}
+            </Accordion>
+          </motion.div>
         </div>
       </section>
 
       {/* Footer Minimalista */}
-      <footer className="py-12 border-t border-border/40">
+      <motion.footer
+        className="py-12 border-t border-border/40"
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true, amount: 0.5 }}
+        variants={fadeIn}
+      >
         <div className="container mx-auto px-6 flex flex-col md:flex-row justify-between items-center gap-8">
           <div className="flex items-center gap-3 opacity-80">
             <div className="w-8 h-8 rounded-xl bg-primary flex items-center justify-center">
@@ -353,7 +461,7 @@ const Index = () => {
             <Link to="/privacidade" className="hover:text-primary transition-colors">Privacidade</Link>
           </div>
         </div>
-      </footer>
+      </motion.footer>
     </div>
   );
 };
