@@ -163,6 +163,11 @@ const Index = () => {
           </nav>
 
           <div className="flex items-center gap-4">
+            <Button variant="ghost" className="rounded-full font-semibold" asChild>
+              <a href="https://user.techfixapp.com.br/login" target="_blank" rel="noopener noreferrer">
+                Login
+              </a>
+            </Button>
             <Button
               variant="ghost"
               size="icon"
