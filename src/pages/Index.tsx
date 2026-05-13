@@ -126,21 +126,14 @@ const Index = () => {
     {
       question: "Como funciona o suporte?",
       answer: "Temos uma equipe de especialistas pronta para te ajudar via WhatsApp e Chat de segunda a sexta, das 09h às 18h."
-    }
-  ];
-
-  const testimonials = [
-    {
-      name: "Ricardo Mendes",
-      role: "Dono de Assistência",
-      content: "O TechFix mudou o patamar da minha loja. Hoje não perco mais OS e o controle financeiro é impecável.",
-      rating: 5
     },
     {
-      name: "Bruna Oliveira",
-      role: "Técnica Senior",
-      content: "A organização das peças e serviços é sensacional. O sistema é leve e nunca me deixa na mão.",
-      rating: 5
+      question: "O TechFix é seguro para os dados dos meus clientes?",
+      answer: "Sim. Todos os dados ficam armazenados na nuvem com backup automático diário. Você não perde nada se o computador pifar."
+    },
+    {
+      question: "Posso cancelar quando quiser?",
+      answer: "Sim, sem multa e sem burocracia. Você fica porque quer, não porque é obrigado."
     }
   ];
 
