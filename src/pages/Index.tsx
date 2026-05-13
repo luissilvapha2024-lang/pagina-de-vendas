@@ -20,14 +20,12 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog";
 import { 
-  Smartphone, 
-  Users, 
-  BarChart3, 
-  ShoppingCart, 
+  Smartphone,
+  Users,
+  BarChart3,
+  ShoppingCart,
   ClipboardList,
   CheckCircle,
-  Star,
-  Quote,
   Moon,
   Sun,
   ArrowRight,
@@ -126,21 +124,14 @@ const Index = () => {
     {
       question: "Como funciona o suporte?",
       answer: "Temos uma equipe de especialistas pronta para te ajudar via WhatsApp e Chat de segunda a sexta, das 09h às 18h."
-    }
-  ];
-
-  const testimonials = [
-    {
-      name: "Ricardo Mendes",
-      role: "Dono de Assistência",
-      content: "O TechFix mudou o patamar da minha loja. Hoje não perco mais OS e o controle financeiro é impecável.",
-      rating: 5
     },
     {
-      name: "Bruna Oliveira",
-      role: "Técnica Senior",
-      content: "A organização das peças e serviços é sensacional. O sistema é leve e nunca me deixa na mão.",
-      rating: 5
+      question: "O TechFix é seguro para os dados dos meus clientes?",
+      answer: "Sim. Todos os dados ficam armazenados na nuvem com backup automático diário. Você não perde nada se o computador pifar."
+    },
+    {
+      question: "Posso cancelar quando quiser?",
+      answer: "Sim, sem multa e sem burocracia. Você fica porque quer, não porque é obrigado."
     }
   ];
 
@@ -198,41 +189,38 @@ const Index = () => {
             </motion.div>
             
             <motion.h1 variants={fadeUp} custom={1} className="text-5xl md:text-7xl font-extrabold tracking-tighter leading-[1.1]">
-              Sua Loja em <br />
+              Sua Assistência Técnica em <br />
               <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-primary/60">
                 outro nível.
               </span>
             </motion.h1>
             
             <motion.p variants={fadeUp} custom={2} className="text-xl text-muted-foreground leading-relaxed max-w-lg">
-              O sistema mais completo e intuitivo do Brasil para gerenciar sua assistência técnica de celulares e eletrônicos.
+              O sistema mais completo e intuitivo para gerenciar ordens de serviço, estoque, financeiro e atendimento, tudo em um lugar só. Direto no navegador, sem instalação.
             </motion.p>
             
             <motion.div variants={fadeUp} custom={3} className="flex flex-col sm:flex-row gap-4">
               <Button size="lg" className="h-14 px-8 rounded-2xl text-lg font-bold gradient-primary shadow-xl hover:shadow-glow transition-all group" asChild>
                 <a href="https://user.techfixapp.com.br/cadastro" target="_blank" rel="noopener noreferrer">
-                  Começar agora grátis
+                  Começar grátis agora
                   <ArrowRight className="ml-2 w-5 h-5 group-hover:translate-x-1 transition-transform" />
                 </a>
               </Button>
               <Button size="lg" variant="outline" className="h-14 px-8 rounded-2xl text-lg font-bold border-2" asChild>
-                <a href="#demonstracao">
-                  Ver demonstração
+                <a href="#como-funciona">
+                  Ver como funciona ↓
                 </a>
               </Button>
             </motion.div>
             
-            <motion.div variants={fadeUp} custom={4} className="flex items-center gap-6 pt-4">
-              <div className="flex -space-x-3">
-                {[1,2,3,4].map(i => (
-                  <div key={i} className="w-10 h-10 rounded-full border-2 border-background bg-muted flex items-center justify-center text-[10px] font-bold">
-                    U{i}
-                  </div>
-                ))}
+            <motion.div variants={fadeUp} custom={4} className="flex items-center gap-3 pt-4">
+              <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-success/10 border border-success/20 text-sm">
+                <span>🚀</span>
+                <p className="text-foreground/90">
+                  <span className="font-bold">Vagas abertas para acesso antecipado gratuito.</span>{" "}
+                  <span className="text-muted-foreground">Sem cartão de crédito.</span>
+                </p>
               </div>
-              <p className="text-sm text-muted-foreground">
-                <span className="font-bold text-foreground">+500 lojistas</span> já confiam no TechFix
-              </p>
             </motion.div>
           </motion.div>
 
@@ -269,6 +257,37 @@ const Index = () => {
                 </div>
               </div>
             </motion.div>
+          </motion.div>
+        </div>
+      </section>
+
+      {/* Como Funciona */}
+      <section id="como-funciona" className="py-24 scroll-mt-24">
+        <div className="container mx-auto px-6 max-w-5xl">
+          <motion.div
+            className="text-center max-w-2xl mx-auto mb-12 space-y-4"
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, amount: 0.5 }}
+            variants={fadeUp}
+          >
+            <h2 className="text-3xl md:text-5xl font-extrabold tracking-tight">Veja o TechFix funcionando na prática</h2>
+            <p className="text-muted-foreground text-lg">
+              Em poucos minutos você entende como organizar sua assistência técnica, controlar ordens de serviço e acompanhar seu faturamento.
+            </p>
+          </motion.div>
+          <motion.div
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, amount: 0.2 }}
+            variants={scaleUp}
+            className="relative rounded-3xl overflow-hidden border border-border/50 shadow-2xl bg-card aspect-video"
+          >
+            <img
+              src="/imagens/2.png"
+              alt="Demonstração do TechFix"
+              className="w-full h-full object-cover"
+            />
           </motion.div>
         </div>
       </section>
@@ -363,23 +382,27 @@ const Index = () => {
       {/* Testimonials */}
       <section id="depoimentos" className="py-24">
         <div className="container mx-auto px-6">
-          <div className="grid lg:grid-cols-3 gap-12 items-center">
-            <motion.div
-              className="lg:col-span-1 space-y-6"
-              initial="hidden"
-              whileInView="visible"
-              viewport={{ once: true, amount: 0.3 }}
-              variants={slideRight}
-            >
-              <h2 className="text-4xl font-extrabold tracking-tight">O que dizem os <br /><span className="text-primary">especialistas?</span></h2>
-              <p className="text-muted-foreground">Quem vive o dia a dia da bancada sabe a diferença que uma boa ferramenta faz.</p>
-              <div className="flex gap-2">
-                {[1,2,3,4,5].map(i => <Star key={i} className="w-5 h-5 fill-yellow-500 text-yellow-500" />)}
-              </div>
-              <p className="text-sm font-bold">Nota 4.9/5 em satisfação</p>
-            </motion.div>
-            <div className="lg:col-span-2 grid md:grid-cols-2 gap-6">
-              {testimonials.map((t, i) => (
+          <motion.div
+            className="max-w-4xl mx-auto text-center space-y-8"
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, amount: 0.3 }}
+            variants={fadeUp}
+          >
+            <h2 className="text-4xl md:text-5xl font-extrabold tracking-tight">
+              Feito para quem vive na <span className="text-primary">bancada</span>
+            </h2>
+            <p className="text-lg text-muted-foreground leading-relaxed">
+              O TechFix foi criado por quem entende o dia a dia de uma assistência técnica. Cada funcionalidade resolve um problema real: OS perdida, peça sem controle, cliente sem atualização do aparelho e caixa fechado sem saber se realmente teve lucro.
+            </p>
+
+            <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4 pt-6 text-left">
+              {[
+                { icon: ClipboardList, label: "Nenhuma OS perdida" },
+                { icon: ShoppingCart, label: "Estoque sob controle" },
+                { icon: Users, label: "Cliente sempre informado" },
+                { icon: BarChart3, label: "Lucro real na palma da mão" },
+              ].map((item, i) => (
                 <motion.div
                   key={i}
                   initial="hidden"
@@ -387,26 +410,29 @@ const Index = () => {
                   viewport={{ once: true, amount: 0.3 }}
                   variants={scaleUp}
                   custom={i}
+                  className="flex items-center gap-3 p-4 rounded-2xl bg-muted/30 border border-border/40"
                 >
-                  <Card className="bg-muted/30 border-none h-full">
-                    <CardContent className="p-8 space-y-4">
-                      <Quote className="text-primary/20 w-10 h-10" />
-                      <p className="italic text-muted-foreground">"{t.content}"</p>
-                      <div className="pt-4 flex items-center gap-4">
-                        <div className="w-12 h-12 rounded-full bg-primary/20 flex items-center justify-center font-bold">
-                          {t.name[0]}
-                        </div>
-                        <div>
-                          <p className="font-bold">{t.name}</p>
-                          <p className="text-xs text-muted-foreground">{t.role}</p>
-                        </div>
-                      </div>
-                    </CardContent>
-                  </Card>
+                  <div className="w-10 h-10 rounded-xl bg-primary/10 flex items-center justify-center text-primary shrink-0">
+                    <item.icon className="w-5 h-5" />
+                  </div>
+                  <p className="text-sm font-semibold">{item.label}</p>
                 </motion.div>
               ))}
             </div>
-          </div>
+
+            <p className="text-muted-foreground pt-4">
+              Você não precisa confiar na nossa palavra. Teste grátis e veja por conta própria.
+            </p>
+
+            <div className="pt-2">
+              <Button size="lg" className="h-14 px-8 rounded-2xl text-lg font-bold gradient-primary shadow-xl hover:shadow-glow transition-all group" asChild>
+                <a href="https://user.techfixapp.com.br/cadastro" target="_blank" rel="noopener noreferrer">
+                  Começar grátis agora
+                  <ArrowRight className="ml-2 w-5 h-5 group-hover:translate-x-1 transition-transform" />
+                </a>
+              </Button>
+            </div>
+          </motion.div>
         </div>
       </section>
 
@@ -460,7 +486,7 @@ const Index = () => {
             </div>
             <span className="font-bold text-lg">TechFix</span>
           </div>
-          <p className="text-sm text-muted-foreground">© 2024 TechFix Soluções. Made for professionals.</p>
+          <p className="text-sm text-muted-foreground">© 2026 TechFix Soluções. Made for professionals.</p>
           <div className="flex gap-6 text-sm font-medium text-muted-foreground">
             <Link to="/termos" className="hover:text-primary transition-colors">Termos</Link>
             <Link to="/privacidade" className="hover:text-primary transition-colors">Privacidade</Link>
