@@ -20,14 +20,12 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog";
 import { 
-  Smartphone, 
-  Users, 
-  BarChart3, 
-  ShoppingCart, 
+  Smartphone,
+  Users,
+  BarChart3,
+  ShoppingCart,
   ClipboardList,
   CheckCircle,
-  Star,
-  Quote,
   Moon,
   Sun,
   ArrowRight,
