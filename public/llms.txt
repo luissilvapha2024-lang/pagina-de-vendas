@@ -1,0 +1,9 @@
+# TechFix
+
+> Sistema SaaS de gestão completo para assistências técnicas de celulares e eletrônicos: ordens de serviço, CRM, PDV, estoque e financeiro em um só lugar.
+
+## Pages
+
+- [Página inicial](/): Visão geral do TechFix, funcionalidades, depoimentos e FAQ.
+- [Termos de Uso](/termos): Condições de uso da plataforma.
+- [Política de Privacidade](/privacidade): Como tratamos dados pessoais conforme a LGPD.
