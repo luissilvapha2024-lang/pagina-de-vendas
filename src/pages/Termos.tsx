@@ -2,12 +2,21 @@ import { Button } from "@/components/ui/button";
 import { Smartphone, ArrowLeft, Moon, Sun } from "lucide-react";
 import { useTheme } from "@/contexts/ThemeContext";
 import { Link } from "react-router-dom";
+import { Helmet } from "react-helmet-async";
 
 const Termos = () => {
   const { theme, toggleTheme } = useTheme();
 
   return (
     <div className="min-h-screen bg-background text-foreground">
+      <Helmet>
+        <title>Termos de Uso — TechFix</title>
+        <meta name="description" content="Termos de Uso do TechFix: condições para utilizar nossa plataforma de gestão para assistências técnicas." />
+        <link rel="canonical" href="https://techs-buddy-frontend.lovable.app/termos" />
+        <meta property="og:title" content="Termos de Uso — TechFix" />
+        <meta property="og:description" content="Condições para utilizar a plataforma TechFix." />
+        <meta property="og:url" content="https://techs-buddy-frontend.lovable.app/termos" />
+      </Helmet>
       {/* Header */}
       <header className="fixed top-0 left-0 right-0 z-50 glass border-b border-border/40">
         <div className="container mx-auto px-6 h-20 flex items-center justify-between">
@@ -24,6 +33,7 @@ const Termos = () => {
               size="icon"
               onClick={toggleTheme}
               className="rounded-full"
+              aria-label="Alternar tema"
             >
               {theme === 'light' ? <Moon className="w-5 h-5" /> : <Sun className="w-5 h-5" />}
             </Button>

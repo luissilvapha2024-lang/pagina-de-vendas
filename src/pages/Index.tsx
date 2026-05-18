@@ -37,6 +37,7 @@ import {
 import { useTheme } from "@/contexts/ThemeContext";
 import Autoplay from "embla-carousel-autoplay";
 import { motion } from "framer-motion";
+import { Helmet } from "react-helmet-async";
 
 const fadeUp = {
   hidden: { opacity: 0, y: 40 },
@@ -137,6 +138,30 @@ const Index = () => {
 
   return (
     <div className="min-h-screen bg-background text-foreground selection:bg-primary/30">
+      <Helmet>
+        <title>TechFix — Gestão completa para assistências técnicas</title>
+        <meta name="description" content="O sistema mais completo e intuitivo para gerenciar ordens de serviço, estoque, financeiro e atendimento da sua assistência técnica. Direto no navegador, sem instalação." />
+        <link rel="canonical" href="https://techs-buddy-frontend.lovable.app/" />
+        <meta property="og:title" content="TechFix — Gestão completa para assistências técnicas" />
+        <meta property="og:description" content="Ordens de serviço, CRM, PDV, estoque e financeiro em um só lugar. Direto no navegador, sem instalação." />
+        <meta property="og:url" content="https://techs-buddy-frontend.lovable.app/" />
+        <meta property="og:type" content="website" />
+        <script type="application/ld+json">{JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "WebSite",
+          "name": "TechFix",
+          "url": "https://techs-buddy-frontend.lovable.app/"
+        })}</script>
+        <script type="application/ld+json">{JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "FAQPage",
+          "mainEntity": faqs.map((f) => ({
+            "@type": "Question",
+            "name": f.question,
+            "acceptedAnswer": { "@type": "Answer", "text": f.answer }
+          }))
+        })}</script>
+      </Helmet>
       {/* Header Moderno */}
       <header className="fixed top-0 left-0 right-0 z-50 glass border-b border-border/40">
         <div className="container mx-auto px-6 h-20 flex items-center justify-between">
@@ -164,6 +189,7 @@ const Index = () => {
               size="icon"
               onClick={toggleTheme}
               className="rounded-full"
+              aria-label="Alternar tema"
             >
               {theme === 'light' ? <Moon className="w-5 h-5" /> : <Sun className="w-5 h-5" />}
             </Button>
@@ -236,6 +262,9 @@ const Index = () => {
               <img 
                 src="/imagens/2.png" 
                 alt="TechFix Interface" 
+                width="1200"
+                height="750"
+                fetchPriority="high"
                 className="w-full h-auto object-cover transform transition-transform duration-700 group-hover:scale-[1.02]"
               />
             </div>
