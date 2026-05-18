@@ -4,6 +4,7 @@ import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { ThemeProvider } from "@/contexts/ThemeContext";
+import { Analytics } from "@vercel/analytics/react";
 import Index from "./pages/Index";
 import Termos from "./pages/Termos";
 import Privacidade from "./pages/Privacidade";
@@ -23,6 +24,7 @@ const App = () => (
             <Route path="/privacidade" element={<Privacidade />} />
           </Routes>
         </BrowserRouter>
+        <Analytics />
       </TooltipProvider>
     </ThemeProvider>
   </QueryClientProvider>
